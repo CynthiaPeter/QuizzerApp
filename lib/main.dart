@@ -26,20 +26,18 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List <Icon> scoreKeeper = [
-          Icon(
-            Icons.check, color: Colors.green,
-          ),
-          Icon(
-            Icons.close, color: Colors.red,
-          ),
-          Icon( 
-            Icons.check, color: Colors.green,
-          ),
-          Icon( 
-            Icons.close, color: Colors.red,
-          )
+  List <Icon> scoreKeeper = []; 
+
+  //LIST FOR QUESTIONS
+  List<String> questions = [
+    'How often do you refer to your PC as Bae?, So I know if you can be a part of SaaS (Singlehood As A Service)',
+    'Approximately one quarter of human bones are in the feet.',
+    'A slug\'s blood is green.',
   ];
+  //CREATE A VARIABLE TO TRACT THE QUESTIONS ANSWERED AND LOAD UP ANOTHER.
+  
+  int questionNumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -52,7 +50,8 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                //'This is where the question text will go.',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -69,7 +68,7 @@ class _QuizPageState extends State<QuizPage> {
               textColor: Colors.white,
               color: Colors.green,
               child: Text(
-                'True',
+                'Mehn!, you got me',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -77,10 +76,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                setState(() {
-                  scoreKeeper.add(
-                    Icon(Icons.check, color:Colors.green,),
-                  );
+                 setState(() {
+                  questionNumber++;
                 });
               },
             ),
@@ -92,7 +89,7 @@ class _QuizPageState extends State<QuizPage> {
             child: FlatButton(
               color: Colors.red,
               child: Text(
-                'False',
+                'Nah, I\'ve got a fleshy Bae',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
@@ -100,6 +97,9 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
