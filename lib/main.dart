@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -26,16 +27,15 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List <Icon> scoreKeeper = []; 
+  List<Icon> scoreKeeper = [];
 
-  //LIST FOR QUESTIONS
-  List<String> questions = [
-    'How often do you refer to your PC as Bae?, So I know if you can be a part of SaaS (Singlehood As A Service)',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
-  ];
-  //CREATE A VARIABLE TO TRACT THE QUESTIONS ANSWERED AND LOAD UP ANOTHER.
-  
+  // //CREATE A VARIABLE TO TRACT THE QUESTIONS ANSWERED AND LOAD UP ANOTHER.
+List<Question> questionBank = [
+  Question(q: 'You know the reason you\'re single is your fault okwaya?', a: true),
+  Question(q: 'You agree to the terms and conditions guiding SaaS?', a:true),
+  Question(q: 'You have feelings for your PC, right?', a:true),
+];
+
   int questionNumber = 0;
 
   @override
@@ -51,7 +51,7 @@ class _QuizPageState extends State<QuizPage> {
             child: Center(
               child: Text(
                 //'This is where the question text will go.',
-                questions[questionNumber],
+                questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -68,7 +68,7 @@ class _QuizPageState extends State<QuizPage> {
               textColor: Colors.white,
               color: Colors.green,
               child: Text(
-                'Mehn!, you got me',
+                'True',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -76,9 +76,16 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                 setState(() {
+                bool correctAnswer = questionBank[questionNumber].questionAnswer;
+                if (correctAnswer == true) {
+                  print('user got it right');
+                } else {
+                  print('user got it wrong');
+                }
+                setState(() {
                   questionNumber++;
                 });
+                print(questionNumber);
               },
             ),
           ),
@@ -89,7 +96,7 @@ class _QuizPageState extends State<QuizPage> {
             child: FlatButton(
               color: Colors.red,
               child: Text(
-                'Nah, I\'ve got a fleshy Bae',
+                'False',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
@@ -97,6 +104,16 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                bool correctAnswer = questionBank[questionNumber].questionAnswer;
+                if (correctAnswer == false) {
+                  print('user got it right');
+                } else {
+                  print('user got it wrong');
+                }
+                setState(() {
+                  questionNumber++;
+                });
+                print(questionNumber);
                 setState(() {
                   questionNumber++;
                 });
@@ -104,9 +121,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Row(children: scoreKeeper
-
-        )
+        Row(children: scoreKeeper)
       ],
     );
   }
